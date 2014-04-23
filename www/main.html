@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="jquery/css/jquery.mobile-1.4.2.css" />
+  <link rel="stylesheet" type="text/css" href="jquery/css/jquery.mobile.flatui.css" />
+
+
+ <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" /> 
+<script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
+
+ <script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
+ 
+  <script src="jquery.js"></script>
+  <script src="jquery.mobile-1.4.0-rc.1.js"></script>
+  <script src="pouchdb-2.1.0.min.js"></script>
+  
+ <script src="http://www.mapquestapi.com/sdk/leaflet/v1.0/mq-map.js?key=Fmjtd%7Cluur2qub2u%2Cr2%3Do5-9aan1y"></script>
+ 
+<script>
+function humanToTime()
+  {
+    var humDate = new Date(Date.UTC(document.h2u.inYear.value,
+          (stripLeadingZeroes(document.h2u.inMon.value)-1),
+          stripLeadingZeroes(document.h2u.inDay.value),
+          stripLeadingZeroes(document.h2u.inHr.value),
+          stripLeadingZeroes(document.h2u.inMin.value),
+          stripLeadingZeroes(document.h2u.inSec.value)));
+    return(humDate.getTime()-19799172);
+    
+  }
+
+  function stripLeadingZeroes(input)
+  {
+    if((input.length > 1) && (input.substr(0,1) == "0"))
+      return input.substr(1);
+    else
+      return input;
+  }
+//  End -->
+</script>
+
+<style>
+    #map { width: 1000px; height: 400px; }
+</style>
+  
+  
+  
+  
+ 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script>
+  var db = new PouchDB('GPSdata');
+ 
+ 
+  
+  
+  
+  //Test function!
+function save(){
+
+  
+  
+  
+  alert("GPSdata vatiable created");
+  if(date==null || lat==null || long== null) alert("all or some your variables: NULL");
+  else{
+  var data = {_id:date,latitude:lat,longitude:long};
+    alert("data copied to array");
+    db.post(data, function callback(err, result) {
+    if (err) {
+      console.log(err);
+      return;
+      
+           }
+    else if(result && result.ok){alert("Data written to database succesfully");
+        alert("Result " +result.rows);
+    
+        
+    }
+  });
+    
+
+    
+    
+    }
+  }
+  </script>
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//The following function adds a remainder at this location
+<script>
+    var remainderbase = new PouchDB('rembase1'),
+    remotebase = 'https://phonegap.couchappy.com/remainderbase',
+    optsbase = {
+        continuous: true
+    };
+
+  function addremainder(){
+
+remainderbase.replicate.to(remote, opts); 
+
+displatlong(function()
+{
+if(latitude!=0)
+{
+var mymessage=document.getElementById("myremainder").value;
+remainderbase.post({
+    "lat": latitude,
+    "long": longitude,
+    "msg": mymessage,
+    "userid": nom ,
+});
+
+remainderbase.replicate.to(remotebase, optsbase); 
+remainderbase.replicate.from(remotebase, optsbase); 
+
+  alert("Done replicatin message");
+
+ }
+});
+
+/*
+cdb.post({
+  "location": 'Johannesburg',
+  "userid": nom
+});
+cdb.replicate.to(remote, opts); 
+*/
+
+  }
+  </script>
+
+
+
+
+
+
+
+
+
+
+//The following function adds a remainder at this location
+<script>
+    var smsbase = new PouchDB('smsbase1'),
+    remotebase2 = 'https://phonegap.couchappy.com/smsbase',
+    optsbase2 = {
+        continuous: true
+    };
+smsbase.replicate.from(remotebase2, optsbase2); 
+
+  function sendmessage(){
+
+smsbase.replicate.to(remotebase2, optsbase2); 
+
+ 
+var mymessage=document.getElementById("smstext").value;
+var to=document.getElementById("smsuser").value;
+
+smsbase.post({
+    "To": to,
+    "From": nom,
+    "sms": mymessage,
+});
+
+smsbase.replicate.to(remotebase2, optsbase2); 
+ 
+
+  alert("The message was sent successfully");
+ 
+ 
+
+  }
+
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+//The following function saves it to the database
+<script>
+ 
+  function xyz(){
+
+   var cdbase = new PouchDB('cdbase1'),
+    remote = 'https://phonegap.couchappy.com/databasenew',
+    opts = {
+        continuous: true
+    };
+
+displatlong(function()
+{
+if(latitude!=0)
+{
+cdbase.post({
+    "lat": latitude,
+    "long": longitude,
+    "ntime": time,
+    "ytime": d,
+    "userid": nom 
+});
+onMap(latitude,longitude);
+
+
+cdbase.replicate.to(remote, opts); 
+disp22.replicate.from(remote, opts); 
+
+  alert("Done replicatin");
+
+ }
+});
+
+  }
+  </script>
+
+
+
+  
+  
+//Test function
+
+  <script>
+  function dispfaf(){
+   var dispdb = new PouchDB('what'),
+    remote = 'https://phonegap.couchappy.com/whatdahell',
+    opts = {
+        continuous: true
+    };
+dispdb.replicate.from(remote, opts); 
+  alert("Done replicatin anotha");
+
+//Show elements
+   var a,b;
+
+ dispdb.allDocs({include_docs: true}, function(err, response) {
+      if (err) {
+      callback(err);
+      return;
+                }
+      console.log(response.rows);
+      var x =" ";
+      for( var i=0;i<response.rows.length;i++){
+        a = response.rows[i].doc._id;b= response.rows[i].doc.name; 
+        x =x+ ""+ a + " "+ b + " " +"\n\n" ;
+       
+      }
+       alert(x);
+                 });
+ 
+
+  }
+  </script>
+  
+
+
+
+
+<script>
+var nom,monitoring;
+function enterUserName()
+{
+
+	while(1)
+	{
+	var uid = prompt("Please enter your user name","");
+     monitoring=prompt("Please enter the name of the person you want to monitor!","");
+
+		if (uid!="")
+  		{	  
+			nom=uid;  
+		/*	var userdb=new PouchDB('userlist'),
+      		remote = 'https://phonegap.couchappy.com/userslist',
+    			opts = {continuous: true};
+			
+			userdb.post({"_id": uid});
+			userdb.replicate.to(remote, opts); */
+ 			document.getElementById("changethis").innerHTML=monitoring;
+			document.getElementById("monitorwho").innerHTML="Where is "+monitoring+" right now?(The most recent time will be displayed)";
+
+document.getElementById("monitortime").innerHTML="Where was  "+monitoring+" at this particular time?";
+ 
+         		break;
+		}
+  	 }
+setInterval(function(){mytimingfunc()},180000);
+}
+      
+
+
+</script>
+
+
+
+//Time function to send data every 3 minutes
+<script>
+var latitude=0,longitude=0,time;
+function mytimingfunc()
+{
+  
+
+   var newdb = new PouchDB('newdb1'),
+    remote = 'https://phonegap.couchappy.com/databasenew',
+    opts = {
+        continuous: true
+    };
+remainderbase.replicate.from(remotebase, optsbase); 
+
+
+displatlong(function()
+{
+if(latitude!=0)
+{
+var a,b,mymes,uid;
+//Check for remainder here
+ remainderbase.allDocs({include_docs: true}, function(err, response) {
+      if (err) {
+      callback(err);
+      return;
+                }
+      console.log(response.rows);
+      var rem ="";
+      for( var i=0;i<response.rows.length;i++){
+        a = response.rows[i].doc.lat;b= response.rows[i].doc.long; mymes=response.rows[i].doc.msg;
+uid=response.rows[i].doc.userid;
+        if(a==latitude && (b==longitude && uid==nom)){
+        rem =rem+ "You have a remainder at this location.\n The remainder is:"+ mymes +"\n\n" ;
+}
+       
+      }
+       if(rem!=""){alert(rem);} 
+                 });
+
+
+
+newdb.post({
+    "lat": latitude,
+    "long": longitude,
+    "ntime": time,
+    "ytime": d,
+    "userid": nom 
+});
+ 
+
+newdb.replicate.to(remote, opts); 
+
+ }
+});
+refreshmessages();
+}
+
+</script>
+
+ 
+
+
+
+
+
+
+
+<script>
+ var latarray=new Array();
+var countarray=new Array();
+ var maxtime=0;
+
+function mostfreq1(callbackFunction)
+{
+
+disp22.replicate.from(remote, opts); 
+
+ 
+
+//Show elements
+   var a1,a2,a3,a4,a5,a6;
+
+ 
+ disp22.allDocs({include_docs: true}, function(err, response) {
+      if (err) {
+      callback(err);
+      return;
+                }
+      console.log(response.rows);
+      for( var i=0;i<response.rows.length;i++)
+  {
+        a = response.rows[i].doc.userid;a2= response.rows[i].doc.lat; a3= response.rows[i].doc.long; a4= response.rows[i].doc.ntime;  
+	a5 = new Date(a4);
+	a6 =a5.toLocaleString();
+        if(a==monitoring)
+	   {
+		
+if(latarray.length==0){latarray[0]=a2;countarray[0]=1;}
+		else
+		{
+			var presence=0;
+			//chk for presence  
+			for(var startpt=0;startpt<latarray.length;startpt++)
+			{
+				if(latarray[startpt]==a2){presence=1;countarray[startpt]=countarray[startpt]+1;break;}
+			}//End of for
+
+           	if(presence==0){var sz=latarray.length;latarray[sz]=a2;countarray[sz]=1;}	
+
+
+		}//End of if-else
+
+      }//End of if monitoring
+   
+}//End of outer for
+callbackFunction();
+                 });
+ 
+
+
+
+}
+</script>
+
+
+
+
+
+<script>
+function mostfreq()
+{
+	mostfreq1
+	(
+		function()
+    		{
+disp22.replicate.from(remote, opts); 
+
+ 
+var mo1,mo2;
+//Show elements
+   var a1,a2,a3,a4,a5,a6;
+
+var maxcount=0;
+var maxlat;
+ 
+//Chk for max ele
+ 
+for(var h=0;h<countarray.length;h++)
+{
+   if(maxcount==0){maxcount=countarray[h];maxlat=latarray[h];}
+  else
+  	{
+		if(countarray[h]>maxcount){maxcount=countarray[h];maxlat=latarray[h];}
+
+	}
+}
+ 
+
+ disp22.allDocs({include_docs: true}, function(err, response) {
+      if (err) {
+      callback(err);
+      return;
+                }
+      console.log(response.rows);
+      var x ="The most frequented location of "+monitoring+" is :\n";
+      for( var i=0;i<response.rows.length;i++){
+        a = response.rows[i].doc.userid;a2= response.rows[i].doc.lat; a3= response.rows[i].doc.long; a4= response.rows[i].doc.ntime; 
+a5 = new Date(a4);
+a6 =a5.toLocaleString();
+        if(a==monitoring)
+	{
+if(maxlat==a2)
+{
+mo1=a2;
+mo2=a3;
+x =x+"Lat: "+a2 + " Long:"+a3+" and he has been in that location " +maxcount+" times \n\n" ;
+ 
+
+break;
+}
+}
+       
+      }
+	onMap(mo1,mo2);
+       alert(x);
+                 });
+
+
+			 	    
+
+      	}
+ 	);
+
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+function whereatthistime()
+{
+
+   disp22.replicate.from(remote, opts); 
+
+ var mo1,mo2;
+
+
+//Show elements
+   var a1,a2,a3,a4,a5,a6;
+
+var usertime=humanToTime();
+ var difftime=-1;
+ var temp;
+var chk=0;
+var storetime;
+ disp22.allDocs({include_docs: true}, function(err, response) {
+      if (err) {
+      callback(err);
+      return;
+                }
+      console.log(response.rows);
+      for( var i=0;i<response.rows.length;i++){
+        a = response.rows[i].doc.userid;a2= response.rows[i].doc.lat; a3= response.rows[i].doc.long; a4= response.rows[i].doc.ntime;  
+a5 = new Date(a4);
+a6 =a5.toLocaleString();
+if(usertime>a4){temp=usertime-a4;}
+else{temp=a4-usertime;}
+        if(a==monitoring)
+	   {
+
+             if(chk==0){difftime=temp;chk=1;storetime=a4;}
+		else{if(temp<difftime){difftime=temp;storetime=a4;}}
+		}
+       
+      }
+   
+                 });
+ var x1,x2;
+ disp22.allDocs({include_docs: true}, function(err, response) {
+      if (err) {
+      callback(err);
+      return;
+                }
+      console.log(response.rows);
+	x1 = new Date(usertime);
+x2 =x1.toLocaleString();
+
+      var x ="On "+x2+", "+monitoring+" was at:\n";
+      for( var i=0;i<response.rows.length;i++){
+        a = response.rows[i].doc.userid;a2= response.rows[i].doc.lat; a3= response.rows[i].doc.long; a4= response.rows[i].doc.ntime; 
+a5 = new Date(a4);
+a6 =a5.toLocaleString();
+        if(a==monitoring)
+	{
+if(storetime==a4)
+{
+mo1=a2;
+mo2=a3;
+x =x+"Lat: "+a2 + " Long:"+a3+" at " +a6+"\n\n" ;
+}
+}
+       
+      }
+       alert(x);
+	onMap(mo1,mo2);
+                 });
+
+
+  
+
+}
+</script>
+
+
+
+
+
+
+
+
+
+<script>
+function changeperson()
+{
+  monitoring=prompt("Please enter the name of the person you want to monitor!","");
+  document.getElementById("changethis").innerHTML=monitoring;
+document.getElementById("monitorwho").innerHTML="Where is "+monitoring+" right now?(The most recent time will be displayed)";
+
+ 
+document.getElementById("monitortime").innerHTML="Where was "+monitoring+" at this particular time?";
+
+ 
+
+}
+</script>
+
+
+
+//FUnction to get latitude and longitude
+<script>
+function displatlong(callbackFunction)
+{
+ var str2,str3,x;
+ 
+navigator.geolocation.getCurrentPosition
+(
+    function(position) 
+	{
+latitude=position.coords.latitude ;
+longitude=position.coords.longitude;
+time=position.timestamp;
+x = new Date(time);
+d =x.toLocaleString();
+        	alert("Lat: " + position.coords.latitude + "\nLon: " + position.coords.longitude+"\nTime:"+d);
+		callbackFunction();
+    },
+    function(error)
+    {
+		latitude=0;longitude=0;
+         	alert(error.message);
+    }
+    ,
+    {
+         enableHighAccuracy: false
+              ,timeout : 5000
+    }
+);	
+   
+
+
+
+
+
+
+}
+</script>
+<script>
+var disp22 = new PouchDB('disp22'),
+    remote = 'https://phonegap.couchappy.com/databasenew',
+    opts = {
+        continuous: true
+    };
+disp22.replicate.from(remote, opts); 
+function displayresult()
+{
+   disp22.replicate.from(remote, opts); 
+
+var mo1,mo2;
+
+//Show elements
+   var a1,a2,a3,a4,a5,a6;
+
+ var maxtime=0;
+ 
+ disp22.allDocs({include_docs: true}, function(err, response) {
+      if (err) {
+      callback(err);
+      return;
+                }
+      console.log(response.rows);
+      for( var i=0;i<response.rows.length;i++){
+        a = response.rows[i].doc.userid;a2= response.rows[i].doc.lat; a3= response.rows[i].doc.long; a4= response.rows[i].doc.ntime;  
+a5 = new Date(a4);
+a6 =a5.toLocaleString();
+        if(a==monitoring)
+	   {
+
+             if(maxtime==0){maxtime=a4;}
+		else{if(a4>maxtime){maxtime=a4;}}
+		}
+       
+      }
+   
+                 });
+ 
+ disp22.allDocs({include_docs: true}, function(err, response) {
+      if (err) {
+      callback(err);
+      return;
+                }
+      console.log(response.rows);
+      var x ="The most recent location of "+monitoring+" was :\n";
+      for( var i=0;i<response.rows.length;i++){
+        a = response.rows[i].doc.userid;a2= response.rows[i].doc.lat; a3= response.rows[i].doc.long; a4= response.rows[i].doc.ntime; 
+a5 = new Date(a4);
+a6 =a5.toLocaleString();
+        if(a==monitoring)
+	{
+if(maxtime==a4)
+{
+mo1=a2;
+mo2=a3;
+x =x+"Lat: "+a2 + " Long:"+a3+" at " +a6+"\n\n" ;
+}
+}
+       
+      }
+       alert(x);
+       onMap(mo1,mo2);
+                 });
+
+
+  
+ 
+}
+</script>
+
+</script>
+<script>
+ 
+smsbase.replicate.from(remotebase2, optsbase2); 
+function refreshmessages()
+{
+   smsbase.replicate.from(remotebase2, optsbase2); 
+
+ 
+
+ var a,a2,a3,a4;
+ var x="";
+ smsbase.allDocs({include_docs: true}, function(err, response) {
+      if (err) {
+      callback(err);
+      return;
+                }
+      console.log(response.rows);
+	x=x+"Your messages are:\n";
+      for( var i=0;i<response.rows.length;i++){
+        a = response.rows[i].doc.To;a2= response.rows[i].doc.From; a3= response.rows[i].doc.sms;  
+        if(a==nom)
+	   {
+ 			x=x+"From:"+a2+"\nMessage:"+a3+"\n";
+	   }
+       
+      }
+   		  document.getElementById("changethesemessages").innerHTML=x;
+
+                 });
+ 
+ 
+  
+ 
+}
+</script>
+
+
+
+
+
+  <script>
+  function dispmap(){
+ 
+displatlong(function()
+{
+if(latitude!=0)
+{
+ 
+onMap(latitude,longitude);
+
+ }
+});
+
+	
+
+  }
+ 
+
+
+
+//UI
+  </script>
+</head>
+<body onLoad=enterUserName()>
+  <div data-role="page">
+
+    <div data-role="panel" id="panel" data-position="right" data-theme="a" data-display="push"></div>
+
+    <div data-role="header">
+      <a data-iconpos="notext" data-role="button" data-icon="home" title="Home">Home</a>
+      <h1>GPS Tracker</h1>
+	Currently Monitoring:<b><p id="changethis"></p></b>
+      <a data-iconpos="notext" href="#panel" data-role="button" data-icon="flat-menu"></a>
+    </div>
+
+    <div data-role="content" role="main">
+     <!-- <p>Sample text and <a href="#">links</a>.</p>
+      <fieldset class="ui-grid-a">
+        <div class="ui-block-a"><button data-icon="flat-settings" data-theme="a">Button A</button></div>
+        <div class="ui-block-b"><button data-icon="flat-new" data-theme="b">Button B</button></div>
+      </fieldset>
+      <fieldset class="ui-grid-a">
+        <div class="ui-block-a"><button data-icon="flat-man" data-theme="c">Button C</button></div>
+        <div class="ui-block-b"><button data-icon="flat-mail" data-theme="d">Button D</button></div>
+      </fieldset> -->
+      <fieldset class="ui-grid-a">
+
+		My messages(Click on Refresh Messages to refresh them-it automatically refreshes every 3 minutes):<b><p id="changethesemessages"></p></b>
+
+    <div data-theme="b" data-content-theme="b" ><button onclick="refreshmessages();" data-icon="flat-location" data-theme="e">Refresh Messages</button></div>
+		
+
+	
+		Enter the text to add as a remainder and the click on the button below:<input type="text" id="myremainder">
+        <div data-theme="b" data-content-theme="b" ><button onclick="addremainder();" data-icon="flat-location" data-theme="e">Add a remainder at this location</button></div>
+		
+
+
+
+
+        <div data-theme="b" data-content-theme="b" ><button onclick="dispmap();" data-icon="flat-location" data-theme="e">Get Current Location</button></div>
+
+      
+      <div id="locationInfo"></div>
+        <div data-theme="b" data-content-theme="b"><button data-icon="flat-man" data-theme="g" onclick="changeperson()">Change the person you want to monitor</button></div>
+		  <div data-theme="b" data-content-theme="b"><button data-icon="flat-man" data-theme="g" id="monitorwho" onclick="displayresult()">Currently monitoring noone</button></div>
+
+	<div data-theme="b" data-content-theme="b"><button data-icon="flat-man" data-theme="g" onclick="whereatthistime()" id="monitortime">Where was the user at this particular time?</button></div>
+<form name="h2u">
+<center>
+<table border="1"><tr><td>
+<table border="0">
+  
+  <tr>
+    <th>Mon:</th>
+    <th>&nbsp;</th>
+    <th>Day:</th>
+    <th>&nbsp;</th>
+    <th>Year:</th>
+    <th>&nbsp;</th>
+    <th>Hr:</th>
+    <th>&nbsp;</th>
+    <th>Min:</th>
+    <th>&nbsp;</th>
+    <th>Sec:</th>
+  </tr>
+  <tr>
+    <td><input type="text" size="4" maxlength="2" name="inMon"></td>
+    <th>/</th>
+    <td><input type="text" size="4" maxlength="2" name="inDay"></td>
+    <th>/</th>
+    <td><input type="text" size="4" maxlength="4" name="inYear"></td>
+    <th>at</th>
+    <td><input type="text" size="4" maxlength="2" name="inHr"></td>
+    <th>:</th>
+    <td><input type="text" size="4" maxlength="2" name="inMin"></td>
+    <th>:</th>
+    <td><input type="text" size="4" maxlength="2" name="inSec"></td>
+  </tr>
+ 
+</table>
+</td></tr></table>
+</center>
+</form>
+
+	<div data-theme="b" data-content-theme="b"><button data-icon="flat-man" data-theme="g" onclick="mostfreq()">His most frequented place?</button></div>
+
+
+        <div data-theme="b" data-content-theme="b"><button  data-content-theme="b" data-theme="n" onclick="xyz();">Save Current Location</button></div>
+     
+	
+
+Enter the text you want to send:<input type="text" id="smstext">
+Type the username of the person you want to send the text to:<input type="text" id="smsuser">
+        <div data-theme="b" data-content-theme="b" ><button onclick="sendmessage();" data-icon="flat-location" data-theme="e">Send the message</button></div>
+
+
+        <div id="onmap"></div>
+      
+        <div id="map"></div> 
+
+  <script>
+ 
+var map =         L.map('map', {
+            layers: MQ.mapLayer(),
+            center: [ 17.3987057, 78.5367509],
+            zoom: 10
+        });
+var marker;
+  function onMap(a, b)
+  {
+   
+ 
+ 
+
+marker = L.marker([a,b]).addTo(map);
+
+ 
+
+ 
+ 
+       
+                
+  
+   
+     }
+  </script>
+
+	 
+      </fieldset>
+
+    <!--  <ul data-role="listview" data-inset="true">
+        <li data-role="list-divider" data-theme="a">List Header</li>
+        <li>Read-only list item</li>
+        <li><a href="#">Linked list item</a></li>
+      </ul> -->
+
+    <!--  <div data-role="collapsible-set" data-theme="b" data-content-theme="b">
+        <div data-role="collapsible" data-collapsed-icon="flat-time" data-expanded-icon="flat-cross" data-collapsed="false">
+          <h3>Recent Locations</h3>
+          <p div = "recent locations">I'm the collapsible content for section 1</p>
+        </div>
+        <div data-role="collapsible" data-collapsed-icon="flat-calendar" data-expanded-icon="flat-cross">
+          <h3>Section 2</h3>
+          <p>I'm the collapsible content for section 2</p>
+        </div>
+        <div data-role="collapsible" data-collapsed-icon="flat-settings" data-expanded-icon="flat-cross">
+          <h3>Section 3</h3>
+          <p>I'm the collapsible content for section 3</p>
+        </div> 
+      </div>
+
+      <div data-role="fieldcontain">
+        <fieldset data-role="controlgroup">
+          <input type="radio" name="radio-choice-a" data-theme="c" id="radio-choice-1-a" value="choice-1" checked="checked" />
+          <label for="radio-choice-1-a">Radio 1</label>
+
+          <input type="radio" name="radio-choice-a" data-theme="c" id="radio-choice-1-b" value="choice-2"  />
+          <label for="radio-choice-1-b">Radio 2</label>
+          <input type="checkbox" name="checkbox-a" data-theme="c" id="checkbox-a" checked="checked" />
+          <label for="checkbox-a">Checkbox</label>
+        </fieldset>
+      </div>
+
+  <!--    <div data-role="fieldcontain">
+        <a href="#" data-role="button" data-icon="home" data-iconpos="notext" data-theme="b" data-inline="true">Home</a>
+        <a href="#" data-role="button" data-icon="flat-video" data-iconpos="notext" data-theme="b" data-inline="true">Video</a>
+        <a href="#" data-role="button" data-icon="flat-time" data-iconpos="notext" data-theme="b" data-inline="true">Time</a>
+        <a href="#" data-role="button" data-icon="flat-settings" data-iconpos="notext" data-theme="b" data-inline="true">Settings</a>
+        <a href="#" data-role="button" data-icon="flat-plus" data-iconpos="notext" data-theme="b" data-inline="true">Plus</a>
+        <a href="#" data-role="button" data-icon="flat-new" data-iconpos="notext" data-theme="b" data-inline="true">New</a>
+        <a href="#" data-role="button" data-icon="flat-menu" data-iconpos="notext" data-theme="b" data-inline="true">Menu</a>
+        <a href="#" data-role="button" data-icon="flat-man" data-iconpos="notext" data-theme="b" data-inline="true">Man</a>
+        <a href="#" data-role="button" data-icon="flat-mail" data-iconpos="notext" data-theme="b" data-inline="true">Mail</a>
+        <a href="#" data-role="button" data-icon="flat-lock" data-iconpos="notext" data-theme="b" data-inline="true">Lock</a> 
+        <a href="#" data-role="button" data-icon="flat-location" data-iconpos="notext" data-theme="b" data-inline="true">Location</a>
+        <a href="#" data-role="button" data-icon="flat-heart" data-iconpos="notext" data-theme="b" data-inline="true">Heart</a>
+        <a href="#" data-role="button" data-icon="flat-eye" data-iconpos="notext" data-theme="b" data-inline="true">Eye</a>
+        <a href="#" data-role="button" data-icon="flat-cross" data-iconpos="notext" data-theme="b" data-inline="true">Cross</a>
+        <a href="#" data-role="button" data-icon="flat-cmd" data-iconpos="notext" data-theme="b" data-inline="true">Cmd</a>
+        <a href="#" data-role="button" data-icon="flat-checkround" data-iconpos="notext" data-theme="b" data-inline="true">Checkround</a>
+        <a href="#" data-role="button" data-icon="flat-calendar" data-iconpos="notext" data-theme="b" data-inline="true">Calendar</a>
+        <a href="#" data-role="button" data-icon="flat-bubble" data-iconpos="notext" data-theme="b" data-inline="true">Bubble</a>
+        <a href="#" data-role="button" data-icon="flat-volume" data-iconpos="notext" data-theme="b" data-inline="true">Volume</a>
+        <a href="#" data-role="button" data-icon="flat-camera" data-iconpos="notext" data-theme="b" data-inline="true">Camera</a> 
+      </div>
+
+      <select name="flip-1" id="flip-1" data-role="slider">
+        <option value="off">Off</option>
+        <option value="on" selected>On</option>
+      </select>
+
+        <div data-role="fieldcontain">
+        <div data-role="controlgroup" data-type="horizontal">
+          <a href="#" data-icon="flat-mail" data-theme="a" data-iconpos="notext" data-role="button">Yes</a>
+          <a href="#" data-icon="flat-camera" data-theme="a" data-iconpos="notext" data-role="button">Yes</a>
+          <a href="#" data-icon="flat-heart" data-theme="a" data-iconpos="notext" data-role="button">Yes</a>
+          <a href="#" data-icon="flat-eye" data-theme="a" data-iconpos="notext" data-role="button">Yes</a>
+        </div>
+      </div>
+
+        <div data-role="fieldcontain">
+        <select name="select-choice" id="select-choice-a" data-native-menu="false" data-theme="a">
+          <option value="standard">Option 1</option>
+          <option value="rush">Option 2</option>
+          <option value="express">Option 3</option>
+          <option value="overnight">Option 4</option>
+        </select>
+      </div> -->
+
+<!--      <input type="text" placeholder="Text Input" />
+      <div data-role="fieldcontain">
+        <input type="range" name="slider" value="50" min="0" max="100" data-highlight="true" />
+      </div>
+    </div>
+  </div> -->
+  
+<div style="height: 180px;;" id="map"></div>
+  <div id="highlight"> </div>
+</body>
+</html>
